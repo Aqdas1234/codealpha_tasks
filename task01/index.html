@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+
+    <script>
+        function calculateAge() {
+            let dob = document.getElementById("DOB").value;
+            if (!dob) {
+                document.getElementById("result").innerText = "Please select a valid date of birth.";
+                return;
+            }
+
+            let birthDate = new Date(dob);
+            let today = new Date();
+
+            let years = today.getFullYear() - birthDate.getFullYear();
+            let months = today.getMonth() - birthDate.getMonth();
+            let days = today.getDate() - birthDate.getDate();
+
+            
+            if (months < 0 || (months === 0 && days < 0)) {
+                years--; 
+                months += 12; 
+            }
+            
+            if (days < 0) {
+                let previousMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+                days += previousMonth.getDate(); 
+                months--; 
+            }
+
+            document.getElementById("result").innerText = `You are ${years} years, ${months} months, and ${days} days old.`;
+        }
+
+    </script>
+
+
+    <style>
+        body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+            }
+
+        .container {
+                background: white;
+                padding: 10px;
+                border-radius: 10px;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+                width: 350px;
+                text-align: center;
+            }
+
+        h1 {
+                margin-bottom: 15px;
+            }
+
+        input {
+                width: 90%;
+                margin-bottom: 20px;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            button {
+                background: #28a745;
+                color: white;
+                border: none;
+                padding: 8px 15px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background: #218838;
+            }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Age Calculator</h1>
+        <input type="date" id="DOB">
+        <br>
+        <button type="button" onclick="calculateAge()">Calculate Age</button>
+        <p id="result"></p>
+    </div>
+
+    
+</body>
+</html>
